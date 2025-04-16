@@ -6,6 +6,7 @@ import MaterialDrawer from "./components/drawer";
 export default function Home() {
     return (
         <>
+        home
         </>
     );
 }
