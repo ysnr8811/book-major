@@ -1,19 +1,20 @@
-"use client";
+import React from "react";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 
-import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { ReactNode } from "react";
-
-interface DrawerItemProps {
+type DrawerItemProps = {
     text: string;
-    icon: ReactNode;
+    icon: React.ReactNode;
     index: number;
-}
+    onClick?: () => void; // 追加
+};
 
-// ドロワー個別のコンポーネント
-export default function DrawerItem({ text, icon, index }: DrawerItemProps) {
+export default function DrawerItem({ text, icon, index, onClick }: DrawerItemProps) {
     return (
         <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={onClick}>
                 <ListItemIcon>{icon}</ListItemIcon>
                 <ListItemText primary={text} />
             </ListItemButton>
