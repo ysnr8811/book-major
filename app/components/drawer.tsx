@@ -1,6 +1,7 @@
-"use client";
+"use client"; // Next.jsのApp Routerでクライアントコンポーネントとして動作させる宣言
 
 import * as React from "react";
+// Material UIのスタイリングや各種コンポーネント、アイコンをインポート
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -20,9 +21,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import { Draw } from "@mui/icons-material";
+import DrawerItemList from "./draweritemlist"; // サイドバーのリスト項目をまとめたコンポーネント
 
-const drawerWidth = 240;
+const drawerWidth = 240; // ドロワー（サイドバー）の幅
 
+// メインコンテンツ部分のスタイルを定義
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
     open?: boolean;
 }>(({ theme }) => ({
@@ -32,7 +36,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
+    marginLeft: `-${drawerWidth}px`, // ドロワーが閉じているときは左に隠す
     variants: [
         {
             props: ({ open }) => open,
@@ -41,16 +45,18 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
                     easing: theme.transitions.easing.easeOut,
                     duration: theme.transitions.duration.enteringScreen,
                 }),
-                marginLeft: 0,
+                marginLeft: 0, // ドロワーが開いているときは左にずらさない
             },
         },
     ],
 }));
 
+// AppBar（上部バー）のprops型を拡張
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
 }
 
+// AppBarのスタイルを定義
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme }) => ({
@@ -62,7 +68,7 @@ const AppBar = styled(MuiAppBar, {
         {
             props: ({ open }) => open,
             style: {
-                width: `calc(100% - ${drawerWidth}px)`,
+                width: `calc(100% - ${drawerWidth}px)`, // ドロワーが開いているときは幅を調整
                 marginLeft: `${drawerWidth}px`,
                 transition: theme.transitions.create(["margin", "width"], {
                     easing: theme.transitions.easing.easeOut,
@@ -73,50 +79,57 @@ const AppBar = styled(MuiAppBar, {
     ],
 }));
 
+// ドロワーヘッダー部分のスタイル
 const DrawerHeader = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
+    // AppBarの下にコンテンツが来るようにする
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
 }));
 
+// メインコンポーネント
 export default function PersistentDrawerLeft() {
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const theme = useTheme(); // テーマ情報を取得
+    const [open, setOpen] = React.useState(false); // ドロワーの開閉状態
 
+    // ドロワーを開く処理
     const handleDrawerOpen = () => {
         setOpen(true);
     };
 
+    // ドロワーを閉じる処理
     const handleDrawerClose = () => {
         setOpen(false);
     };
 
     return (
+        // 全体をBoxでラップ
         <Box sx={{ display: "flex" }}>
+            {/* 上部のAppBar */}
             <AppBar position="fixed" open={open}>
                 <Toolbar>
+                    {/* ドロワーを開くためのメニューボタン */}
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
                         sx={[
-                            {
-                                mr: 2,
-                            },
-                            open && { display: "none" },
+                            { mr: 2 },
+                            open && { display: "none" }, // ドロワーが開いているときは非表示
                         ]}
                     >
                         <MenuIcon />
                     </IconButton>
+                    {/* タイトル */}
                     <Typography variant="h6" noWrap component="div">
                         Book-Major
                     </Typography>
                 </Toolbar>
             </AppBar>
+            {/* サイドバー（ドロワー） */}
             <Drawer
                 sx={{
                     width: drawerWidth,
@@ -126,29 +139,27 @@ export default function PersistentDrawerLeft() {
                         boxSizing: "border-box",
                     },
                 }}
-                variant="persistent"
+                variant="persistent" // 開閉状態を保持するドロワー
                 anchor="left"
                 open={open}
             >
+                {/* ドロワーヘッダー（閉じるボタン） */}
                 <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
+                        {/* テーマの方向によってアイコンを切り替え */}
                         {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List>
-                    {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
+
+                {/* サイドバーのリスト項目（DrawerItemList）を表示 */}
+                <DrawerItemList />
+
                 <Divider />
             </Drawer>
+            {/* メインコンテンツ部分 */}
             <Main open={open}>
+                {/* AppBarの下に余白を作るためのダミー */}
                 <DrawerHeader />
             </Main>
         </Box>
