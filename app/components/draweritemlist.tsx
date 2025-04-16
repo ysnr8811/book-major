@@ -1,7 +1,5 @@
-"use client";
-
 import React from "react";
-import { useRouter } from "next/navigation"; // 追加
+import { useRouter } from "next/navigation";
 import InboxIcon from "@mui/icons-material/Inbox";
 import HomeIcon from '@mui/icons-material/Home';
 import ListIcon from '@mui/icons-material/Checklist';
@@ -20,7 +18,11 @@ const items = [
     { text: "profile", icon: <InboxIcon />, path: "/profile" },
 ];
 
-export default function DrawerItemList() {
+type DrawerItemListProps = {
+    onItemClick: () => void; // 追加
+};
+
+export default function DrawerItemList({ onItemClick }: DrawerItemListProps) {
     const router = useRouter();
 
     return (
@@ -31,7 +33,10 @@ export default function DrawerItemList() {
                     text={item.text}
                     icon={item.icon}
                     index={index}
-                    onClick={() => router.push(item.path)} // クリック時に遷移
+                    onClick={() => {
+                        router.push(item.path);
+                        if (onItemClick) onItemClick(); // ここでdrawerを閉じる
+                    }}
                 />
             ))}
         </List>

@@ -142,6 +142,7 @@ export default function PersistentDrawerLeft() {
                 variant="persistent" // 開閉状態を保持するドロワー
                 anchor="left"
                 open={open}
+                onClose={handleDrawerClose}
             >
                 {/* ドロワーヘッダー（閉じるボタン） */}
                 <DrawerHeader>
@@ -153,7 +154,7 @@ export default function PersistentDrawerLeft() {
                 <Divider />
 
                 {/* サイドバーのリスト項目（DrawerItemList）を表示 */}
-                <DrawerItemList />
+                <DrawerItemList onItemClick={handleDrawerClose} />
 
                 <Divider />
             </Drawer>
