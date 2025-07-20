@@ -23,32 +23,28 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Draw } from "@mui/icons-material";
 import DrawerItemList from "./draweritemlist"; // サイドバーのリスト項目をまとめたコンポーネント
+import DarkModeSwitch from "./dark-mode-switch";
 
 const drawerWidth = 240; // ドロワー（サイドバー）の幅
 
 // メインコンテンツ部分のスタイルを定義
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
     open?: boolean;
-}>(({ theme }) => ({
+}>(({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`, // ドロワーが閉じているときは左に隠す
-    variants: [
-        {
-            props: ({ open }) => open,
-            style: {
-                transition: theme.transitions.create("margin", {
-                    easing: theme.transitions.easing.easeOut,
-                    duration: theme.transitions.duration.enteringScreen,
-                }),
-                marginLeft: 0, // ドロワーが開いているときは左にずらさない
-            },
-        },
-    ],
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+        transition: theme.transitions.create("margin", {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+    }),
 }));
 
 // AppBar（上部バー）のprops型を拡張
@@ -59,24 +55,19 @@ interface AppBarProps extends MuiAppBarProps {
 // AppBarのスタイルを定義
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme }) => ({
+})<AppBarProps>(({ theme, open }) => ({
     transition: theme.transitions.create(["margin", "width"], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    variants: [
-        {
-            props: ({ open }) => open,
-            style: {
-                width: `calc(100% - ${drawerWidth}px)`, // ドロワーが開いているときは幅を調整
-                marginLeft: `${drawerWidth}px`,
-                transition: theme.transitions.create(["margin", "width"], {
-                    easing: theme.transitions.easing.easeOut,
-                    duration: theme.transitions.duration.enteringScreen,
-                }),
-            },
-        },
-    ],
+    ...(open && {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: `${drawerWidth}px`,
+        transition: theme.transitions.create(["margin", "width"], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
 }));
 
 // ドロワーヘッダー部分のスタイル
@@ -90,7 +81,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 // メインコンポーネント
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({ children }: { children: React.ReactNode }) {
     const theme = useTheme(); // テーマ情報を取得
     const [open, setOpen] = React.useState(false); // ドロワーの開閉状態
 
@@ -124,9 +115,10 @@ export default function PersistentDrawerLeft() {
                         <MenuIcon />
                     </IconButton>
                     {/* タイトル */}
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
                         Book-Major
                     </Typography>
+                    <DarkModeSwitch />
                 </Toolbar>
             </AppBar>
             {/* サイドバー（ドロワー） */}
@@ -160,8 +152,8 @@ export default function PersistentDrawerLeft() {
             </Drawer>
             {/* メインコンテンツ部分 */}
             <Main open={open}>
-                {/* AppBarの下に余白を作るためのダミー */}
                 <DrawerHeader />
+                {children}
             </Main>
         </Box>
     );
