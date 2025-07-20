@@ -5,32 +5,32 @@ import MaterialDrawer from "./components/drawer"; // クライアントコンポ
 import ThemeRegistry from "./components/theme-registry";
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+    variable: "--font-geist-sans",
+    subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Book-Major",
-  description: "Book-Major"
+    title: "Book-Major",
+    description: "Book-Major",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body>
-        <ThemeRegistry>
-          <MaterialDrawer>{children}</MaterialDrawer>
-        </ThemeRegistry>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body>
+                <ThemeRegistry>
+                    <MaterialDrawer>{children}</MaterialDrawer>
+                </ThemeRegistry>
+            </body>
+        </html>
+    );
 }
