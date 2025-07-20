@@ -1,0 +1,12 @@
+{
+  "editor.tabSize": 4,
+  "editor.insertSpaces": false,
+  "[typescriptreact]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false
+  },
+  "[typescript]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false
+  }
+}

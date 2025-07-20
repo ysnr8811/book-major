@@ -9,44 +9,44 @@ import RecommendIcon from '@mui/icons-material/Recommend';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import LibraryIcon from '@mui/icons-material/LocalLibrary';
 import {
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
+	List,
+	ListItem,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
 } from "@mui/material";
 
 const items = [
-    { text: "Home", icon: <HomeIcon />, path: "/" },
-    { text: "list", icon: <ChecklistIcon />, path: "/list" },
-    { text: "Recommend", icon: <RecommendIcon />, path: "/recommend" },
-    { text: "BookStore", icon: <AutoStoriesIcon />, path: "/bookstore" },
-    { text: "Library", icon: <LibraryIcon />, path: "/library" },
-    { text: "profile", icon: <InboxIcon />, path: "/profile" },
+	{ text: "Home", icon: <HomeIcon />, path: "/" },
+	{ text: "list", icon: <ChecklistIcon />, path: "/list" },
+	{ text: "Recommend", icon: <RecommendIcon />, path: "/recommend" },
+	{ text: "BookStore", icon: <AutoStoriesIcon />, path: "/bookstore" },
+	{ text: "Library", icon: <LibraryIcon />, path: "/library" },
+	{ text: "profile", icon: <InboxIcon />, path: "/profile" },
 ];
 
 type DrawerItemListProps = {
-    onItemClick: () => void;
+	onItemClick: () => void;
 };
 
 export default function DrawerItemList({ onItemClick }: DrawerItemListProps) {
-    const router = useRouter();
+	const router = useRouter();
 
-    return (
-        <List>
-            {items.map((item) => (
-                <ListItem key={item.text} disablePadding>
-                    <ListItemButton
-                        onClick={() => {
-                            router.push(item.path);
-                            onItemClick();
-                        }}
-                    >
-                        <ListItemIcon>{item.icon}</ListItemIcon>
-                        <ListItemText primary={item.text} />
-                    </ListItemButton>
-                </ListItem>
-            ))}
-        </List>
-    );
+	return (
+		<List>
+			{items.map((item) => (
+				<ListItem key={item.text} disablePadding>
+					<ListItemButton
+						onClick={() => {
+							router.push(item.path);
+							onItemClick();
+						}}
+					>
+						<ListItemIcon>{item.icon}</ListItemIcon>
+						<ListItemText primary={item.text} />
+					</ListItemButton>
+				</ListItem>
+			))}
+		</List>
+	);
 }

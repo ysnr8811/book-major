@@ -7,12 +7,12 @@ import { ThemeModeContext } from './theme-registry';
 import { useTheme } from '@mui/material/styles';
 
 export default function DarkModeSwitch() {
-  const theme = useTheme();
-  const { toggleThemeMode } = React.useContext(ThemeModeContext);
+	const theme = useTheme();
+	const { toggleThemeMode } = React.useContext(ThemeModeContext);
 
-  return (
-    <IconButton sx={{ ml: 1 }} onClick={toggleThemeMode} color="inherit">
-      {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-    </IconButton>
-  );
+	return (
+		<IconButton sx={{ ml: 1 }} onClick={toggleThemeMode} color="inherit">
+			{theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+		</IconButton>
+	);
 }
