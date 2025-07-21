@@ -62,7 +62,7 @@ export default function BookstorePage() {
 			</Typography>
 			<Grid container spacing={3}>
 				{bookstores.map((store) => (
-					<Grid item xs={12} sm={6} md={4} key={store.slug}>
+					<Grid item xs={12} sm={6} md={4} key={store.slug} component="div">
 						<Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
 							<CardActionArea component={Link} href={`/bookstore/${store.slug}`} sx={{ flexGrow: 1 }}>
 								<CardContent sx={{ width: '100%' }}>
