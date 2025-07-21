@@ -63,9 +63,9 @@ export default function BookstorePage() {
 			<Grid container spacing={3}>
 				{bookstores.map((store) => (
 					<Grid item xs={12} sm={6} md={4} key={store.slug}>
-						<Card sx={{ height: '100%' }}>
-							<CardActionArea component={Link} href={`/bookstore/${store.slug}`} sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-								<CardContent sx={{ flexGrow: 1, width: '100%' }}>
+						<Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+							<CardActionArea component={Link} href={`/bookstore/${store.slug}`} sx={{ flexGrow: 1 }}>
+								<CardContent sx={{ width: '100%' }}>
 									<Typography gutterBottom variant="h5" component="div">
 										{store.name}
 									</Typography>
@@ -81,12 +81,12 @@ export default function BookstorePage() {
 										{store.description}
 									</Typography>
 								</CardContent>
-								<CardActions sx={{ alignSelf: 'flex-start' }}>
-									<Button size="small" onClick={(e) => e.stopPropagation()} href={store.url} target="_blank" rel="noopener noreferrer">
-										ウェブサイト
-									</Button>
-								</CardActions>
 							</CardActionArea>
+							<CardActions>
+								<Button size="small" onClick={(e) => e.stopPropagation()} href={store.url} target="_blank" rel="noopener noreferrer">
+									ウェブサイト
+								</Button>
+							</CardActions>
 						</Card>
 					</Grid>
 				))}
