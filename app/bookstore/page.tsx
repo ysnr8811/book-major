@@ -83,7 +83,7 @@ export default function BookstorePage() {
 								</CardContent>
 							</CardActionArea>
 							<CardActions>
-								<Button size="small" onClick={(e) => e.stopPropagation()} href={store.url} target="_blank" rel="noopener noreferrer">
+								<Button size="small" onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()} href={store.url} target="_blank" rel="noopener noreferrer">
 									ウェブサイト
 								</Button>
 							</CardActions>
