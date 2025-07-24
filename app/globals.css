@@ -24,3 +24,86 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bookstore-container {
+  padding: 24px;
+}
+
+.bookstore-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.bookstore-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  list-style: none;
+  padding: 0;
+}
+
+.bookstore-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bookstore-card-link {
+  text-decoration: none;
+  color: inherit;
+  flex-grow: 1;
+}
+
+.bookstore-card-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.bookstore-card-location {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.metric-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.metric-bar-container {
+  width: 100px;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.metric-bar {
+  height: 100%;
+  background-color: #1976d2;
+  border-radius: 4px;
+}
+
+.bookstore-card-description {
+  margin-top: 16px;
+}
+
+.bookstore-card-actions {
+  margin-top: 16px;
+}
+
+.bookstore-card-button {
+  font-size: 0.875rem;
+  padding: 6px 16px;
+  border: 1px solid #1976d2;
+  border-radius: 4px;
+  color: #1976d2;
+  text-decoration: none;
+  display: inline-block;
+}

@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { Card, CardContent, CardActions, Typography, Button, Grid, Box, CardActionArea } from '@mui/material';
 import Link from 'next/link';
 
 const bookstores = [
@@ -43,54 +42,44 @@ const bookstores = [
 ];
 
 const MetricItem = ({ label, value }: { label: string, value: number }) => (
-	<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', my: 0.5 }}>
-		<Typography variant="body2">{label}</Typography>
-		<Box sx={{ display: 'flex', alignItems: 'center' }}>
-			<Box sx={{ width: '100px', height: '8px', backgroundColor: '#e0e0e0', borderRadius: '4px', mr: 1 }}>
-				<Box sx={{ width: `${value * 10}%`, height: '100%', backgroundColor: 'primary.main', borderRadius: '4px' }} />
-			</Box>
-			<Typography variant="body2" sx={{ fontWeight: 'bold' }}>{value}/10</Typography>
-		</Box>
-	</Box>
+    <div className="metric-item">
+        <span>{label}</span>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="metric-bar-container">
+                <div className="metric-bar" style={{ width: `${value * 10}%` }} />
+            </div>
+            <span>{value}/10</span>
+        </div>
+    </div>
 );
 
 export default function BookstorePage() {
 	return (
-		<Box sx={{ p: 3 }}>
-			<Typography variant="h4" component="h1" gutterBottom>
-				書店一覧
-			</Typography>
-			<Grid container spacing={3}>
-				{bookstores.map((store) => (
-					<Grid item xs={12} sm={6} md={4} key={store.slug} component="div">
-						<Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-							<CardActionArea component={Link} href={`/bookstore/${store.slug}`} sx={{ flexGrow: 1 }}>
-								<CardContent sx={{ width: '100%' }}>
-									<Typography gutterBottom variant="h5" component="div">
-										{store.name}
-									</Typography>
-									<Typography variant="body2" color="text.secondary">
-										{store.location}
-									</Typography>
-									<Box sx={{ my: 2 }}>
-										<MetricItem label="書籍の量" value={store.metrics.volume} />
-										<MetricItem label="立地" value={store.metrics.location} />
-										<MetricItem label="勉強スペース" value={store.metrics.studySpace} />
-									</Box>
-									<Typography variant="body2">
-										{store.description}
-									</Typography>
-								</CardContent>
-							</CardActionArea>
-							<CardActions>
-								<Button size="small" onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()} href={store.url} target="_blank" rel="noopener noreferrer">
-									ウェブサイト
-								</Button>
-							</CardActions>
-						</Card>
-					</Grid>
-				))}
-			</Grid>
-		</Box>
+        <div className="bookstore-container">
+            <h1 className="bookstore-title">書店一覧</h1>
+            <ul className="bookstore-list">
+                {bookstores.map((store) => (
+                    <li key={store.slug} className="bookstore-card">
+                        <Link href={`/bookstore/${store.slug}`} className="bookstore-card-link">
+                            <div>
+                                <h2 className="bookstore-card-name">{store.name}</h2>
+                                <p className="bookstore-card-location">{store.location}</p>
+                                <div>
+                                    <MetricItem label="書籍の量" value={store.metrics.volume} />
+                                    <MetricItem label="立地" value={store.metrics.location} />
+                                    <MetricItem label="勉強スペース" value={store.metrics.studySpace} />
+                                </div>
+                                <p className="bookstore-card-description">{store.description}</p>
+                            </div>
+                        </Link>
+                        <div className="bookstore-card-actions">
+                            <a href={store.url} target="_blank" rel="noopener noreferrer" className="bookstore-card-button">
+                                ウェブサイト
+                            </a>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+        </div>
 	);
 }
